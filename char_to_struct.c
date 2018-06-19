@@ -22,6 +22,7 @@ int main(int argc, char const *argv[])
 
     printf("str[10] = {'A', 0, 0, 0, 0, 'B', 0, 0, 0, 0};\n\
 struct StrStruct {\n   char a;\n   int b;\n};\n");
+
     printf("out from struct:\n  char a = %c\n   int b = %d\n", s->a, s->b);
     printf("out from struct att(packed):\n  char a = %c\n   int b = %d\n", s_p->a, s_p ->b);
 
