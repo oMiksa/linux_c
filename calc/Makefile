@@ -10,5 +10,5 @@ div.o:
 	gcc -c div.c
 mult.o:
 	gcc -c mult.c
-clean:
+clr:
 	rm -f libcalcul.a add.o ded.o div.o mult.o 
