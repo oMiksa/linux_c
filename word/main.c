@@ -15,7 +15,7 @@ int main(int argc, char ** argv){
     int RUN = 1, y, x;
     
     initscr();
-    
+
     start_color();
     init_pair(1, COLOR_RED, COLOR_GREEN);
     init_pair(2, COLOR_BLACK, COLOR_WHITE);
@@ -43,9 +43,8 @@ int main(int argc, char ** argv){
     }
 
     keypad(wnd_txt, true);
-
     mousemask(BUTTON1_CLICKED, NULL);
-    
+
     while(RUN){
         getyx(wnd_txt, y, x);
         if((y == (ROW-1))&&(x == (COL-1))) 

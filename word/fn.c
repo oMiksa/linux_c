@@ -5,38 +5,40 @@
 
 void move_in_win(WINDOW *win, int y, int x, char step){
     switch ((int)step){   
-        case 'a':
-        case KEY_LEFT:
+        case 4:
+        //case KEY_LEFT:
             if(x == 0)
                 if(y == 0)
                     wmove(win, ROW - 1, COL - 1);
                 else wmove(win, y - 1, COL - 1);
             else wmove(win, y, x-1);
             break;
-        case 'd':
-        case KEY_RIGHT:
+        case 5:
+        //case KEY_RIGHT:
             if(x == COL - 1)
                 if(y == ROW - 1)
                     wmove(win, 0, 0);
                 else wmove(win, y + 1, 0);
             else wmove(win, y, x + 1);
             break;
-        case 'w':
-        case KEY_UP:
+        case 3:
+        //case KEY_UP:
             if(y == 0)
                 wmove(win, ROW - 1, x);
             else wmove(win, y - 1, x);
             break;
-        case 's':
-        case KEY_DOWN:
+        case 2:
+        //case KEY_DOWN:
             if(y == ROW - 1)
                 wmove(win, 0, x);
             else wmove(win, y + 1, x);
             break;
         case 10:
+        //case KEY_ENTER:
             if(y == (ROW-1))
                 wmove(win, 0, 0);
             else wmove(win, y + 1, 0);
+            break;
         default:
             break;
     }
