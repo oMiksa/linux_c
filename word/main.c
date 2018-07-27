@@ -20,6 +20,46 @@ FILE *fd;
 
 void read_to_win(WINDOW * win);
 
+void move_in_win(WINDOW *win, int y, int x, char step)
+{
+     switch ((int)step)
+        {   
+            case 'a':
+            case KEY_LEFT:
+                if(x == 0)
+                    if(y == 0)
+                        wmove(wnd_txt, ROW - 1, COL - 1);
+                    else wmove(wnd_txt, y - 1, COL - 1);
+                else wmove(wnd_txt, y, x-1);
+                break;
+            case 'd':
+            case KEY_RIGHT:
+                if(x == COL - 1)
+                    if(y == ROW - 1)
+                        wmove(wnd_txt, 0, 0);
+                    else wmove(wnd_txt, y + 1, 0);
+                else wmove(wnd_txt, y, x + 1);
+                break;
+            case 'w':
+            case KEY_UP:
+                if(y == 0)
+                    wmove(wnd_txt, ROW - 1, x);
+                else wmove(wnd_txt, y - 1, x);
+                break;
+            case 's':
+            case KEY_DOWN:
+                if(y == ROW - 1)
+                    wmove(wnd_txt, 0, x);
+                else wmove(wnd_txt, y + 1, x);
+                break;
+            case 10:
+                if(y == (ROW-1))
+                    wmove(wnd_txt, 0, 0);
+                else wmove(wnd_txt, y + 1, 0);
+            default:
+                break;
+        }
+}
 
 int button_OSE(int y, int x)
 {
@@ -148,49 +188,9 @@ int main(int argc, char ** argv)
         if((y == (ROW-1))&&(x == (COL-1))) wmove(wnd_txt, 0, 0);
 
         ch = wgetch(wnd_txt);
+
+        move_in_win(wnd_txt, y, x, ch);
         
-        switch ((int)ch)
-        {   
-            case 'a':
-            case KEY_LEFT:
-                if(x == 0)
-                    if(y == 0)
-                        wmove(wnd_txt, ROW - 1, COL - 1);
-                    else wmove(wnd_txt, y - 1, COL - 1);
-                else wmove(wnd_txt, y, x-1);
-                break;
-            case 'd':
-            case KEY_RIGHT:
-                if(x == COL - 1)
-                    if(y == ROW - 1)
-                        wmove(wnd_txt, 0, 0);
-                    else wmove(wnd_txt, y + 1, 0);
-                else wmove(wnd_txt, y, x + 1);
-                break;
-            case 'w':
-            case KEY_UP:
-                if(y == 0)
-                    wmove(wnd_txt, ROW - 1, x);
-                else wmove(wnd_txt, y - 1, x);
-                break;
-            case 's':
-            case KEY_DOWN:
-                if(y == ROW - 1)
-                    wmove(wnd_txt, 0, x);
-                else wmove(wnd_txt, y + 1, x);
-                break;
-            default:
-                break;
-        }
-
-        if(ch == 10)
-        {
-            if(y == (ROW-1))
-                wmove(wnd_txt, 0, 0);
-            else
-                wmove(wnd_txt, y + 1, 0);
-        }
-
         //work with mouse
         getmouse(&event);
         mouse_click(wnd_txt, button_OSE(event.y, event.x));        
