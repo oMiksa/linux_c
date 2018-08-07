@@ -20,9 +20,7 @@ int main()
     addr.sin_family = AF_INET;
     addr.sin_port = htons(7777);
     addr.sin_addr.s_addr = inet_addr("192.168.1.8");
-    sendto(sock, msg1, sizeof(msg1), 0,
-           (struct sockaddr *)&addr, sizeof(addr));
-
+    sendto(sock, msg1, sizeof(msg1), 0, (struct sockaddr *)&addr, sizeof(addr));
     connect(sock, (struct sockaddr *)&addr, sizeof(addr));
     send(sock, msg2, sizeof(msg2), 0);
 
