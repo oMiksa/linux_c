@@ -1,9 +1,14 @@
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 
-char msg1[] = "Hello there!\n";
-char msg2[] = "Bye bye!\n";
+char msg[1024] = "Hello there!\n";
 
 int main()
 {
@@ -19,11 +24,11 @@ int main()
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(7777);
-    addr.sin_addr.s_addr = inet_addr("192.168.1.8");
-    sendto(sock, msg1, sizeof(msg1), 0, (struct sockaddr *)&addr, sizeof(addr));
-    connect(sock, (struct sockaddr *)&addr, sizeof(addr));
-    send(sock, msg2, sizeof(msg2), 0);
-
+    inet_aton("192.168.1.8", &addr.sin_addr);
+    sendto(sock, msg, sizeof(msg), 0, (struct sockaddr *)&addr, sizeof(addr));
+    
+    recvfrom(sock, msg, sizeof(msg), 0, 0, 0);
+    printf(msg);
     close(sock);
 
     return 0;
