@@ -1,9 +1,10 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <arpa/inet.h>
 
 int main(){
     int sock, listener;
@@ -20,7 +21,7 @@ int main(){
     
     addr.sin_family = AF_INET;
     addr.sin_port = htons(7777);
-    addr.sin_addr.s_addr = inet_addr("192.168.1.8");
+    addr.sin_addr.s_addr = inet_addr("192.168.16.32");
     if(bind(listener, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
         perror("bind");

@@ -3,6 +3,7 @@
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <arpa/inet.h>
 
 char message[1024] = "Hello there\n";
 char buf[1024];
@@ -21,9 +22,8 @@ int main()
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(7777);
-    addr.sin_addr.s_addr = inet_addr("192.168.1.8");
-    if(connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0)
-    {
+    addr.sin_addr.s_addr = inet_addr("192.168.16.32");
+    if(connect(sock, (struct sockaddr *)&addr, sizeof(addr)) < 0){
         perror("connect");
         exit(2);
     }

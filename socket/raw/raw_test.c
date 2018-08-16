@@ -8,6 +8,7 @@
 #include<sys/socket.h>
 #include<sys/types.h>
 #include<arpa/inet.h>
+#include<unistd.h>
 
 void print_ip_header(unsigned char* , int);
 void print_udp_packet(unsigned char * , int);
@@ -61,36 +62,44 @@ int main(int argc, char const *argv[]){
 
     addr_sv.sin_family = AF_INET;
     addr_sv.sin_port = htons(7777);
-    inet_aton("192.168.1.8", &addr_sv.sin_addr);
+    inet_aton("192.168.16.32", &addr_sv.sin_addr);
 
     int addr_len = sizeof(addr);
     int addr_sv_len = sizeof(addr_sv);
     
-    sendto(fdsock, msgbuf, sizeof(msg_sv) + sizeof(header), 0, (struct sockaddr*)&addr_sv, addr_sv_len);
+    //sendto(fdsock, msgbuf, sizeof(msg_sv) + sizeof(header), 0, (struct sockaddr*)&addr_sv, addr_sv_len);
     
     unsigned short iphdrlen;
+    unsigned short *ptr;
     struct iphdr *iph;
     struct udphdr *udph;
-
+    int times = 0;
     while(1){
+        
+        
+        sendto(fdsock, msgbuf, sizeof(msg_sv) + sizeof(header), 0, (struct sockaddr*)&addr_sv, addr_sv_len);
+        
+        sleep(2);
+        
         bytes = recvfrom(fdsock, msg, sizeof(msg), 0, (struct sockaddr*)&addr, &addr_len);
-        //print_udp_packet(msg, bytes);
+        print_udp_packet(msg, bytes);
 
-        iph = (struct iphdr*)msg;
-        iphdrlen = iph->ihl*4;
-        udph = (struct udphdr*)(msg+iphdrlen);
-        if(ntohs(udph->source) == 7777){
-            for(int i = 28; msg[i] != '\0'; i++){
-                printf("%c", msg[i]);
-            }
-        }
+        //iph = (struct iphdr*)msg;
+        //iphdrlen = iph->ihl*4;
+        //udph = (struct udphdr*)(msg+iphdrlen);
+        //if(ntohs(udph->source) == 7777){
+        //    for(int i = 28; msg[i] != '\0'; i++){
+        //        printf("%c", msg[i]);
+        //    }
+        //}
+
         //for(int i = 0; i < 30; i++)
         //    printf("%d)%c -- %d\n", i, msg[i], (u_int16_t)msg[i]);
         //ShowBin(msg[20]);
         //printf(" ");
         //ShowBin(msg[21]);
         //printf("\n");
-        //printf("\n%d", ntohs(((u_int16_t)msg[0] << 20)));
+        //printf("\n%d", ntohs((unsigned short)msg[11]));
     }
     return 0;
 

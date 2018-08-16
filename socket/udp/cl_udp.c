@@ -24,7 +24,7 @@ int main()
 
     addr.sin_family = AF_INET;
     addr.sin_port = htons(7777);
-    inet_aton("192.168.1.8", &addr.sin_addr);
+    inet_aton("192.168.16.32", &addr.sin_addr);
     sendto(sock, msg, sizeof(msg), 0, (struct sockaddr *)&addr, sizeof(addr));
     
     recvfrom(sock, msg, sizeof(msg), 0, 0, 0);
