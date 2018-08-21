@@ -9,6 +9,7 @@
 #include<sys/types.h>
 #include<arpa/inet.h>
 #include<unistd.h>
+#include<linux/if_ether.h>
 
 void print_ip_header(unsigned char* , int);
 void print_udp_packet(unsigned char * , int);
@@ -16,7 +17,8 @@ void PrintData (unsigned char* , int);
 
 struct sockaddr_in source,dest;
 int i, j;
-
+struct ethhdr eth;
+eth.
 
 struct UdpHeader{
     u_short src_port;
