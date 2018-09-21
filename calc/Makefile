@@ -1,7 +1,8 @@
-calcuk: libcalcul.a
+calcul: libcalcul.a
 	gcc main.c show.c -o calcul -L. -lcalcul
 libcalcul.a: add.o ded.o div.o mult.o libcalc.h 
 	ar -rc libcalcul.a add.o ded.o div.o mult.o
+	rm -f ded.o add.o mult.o div.o
 add.o:
 	gcc -c add.c
 ded.o:
@@ -10,5 +11,5 @@ div.o:
 	gcc -c div.c
 mult.o:
 	gcc -c mult.c
-clr:
-	rm -f libcalcul.a add.o ded.o div.o mult.o 
+clen:
+	rm -f libcalcul.a calcul
