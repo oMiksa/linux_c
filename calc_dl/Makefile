@@ -1,6 +1,7 @@
-#calcuk:
-#	gcc main.c show.c -o calc -L. -lcalc
+calcul: dll
+	gcc main.c -o calcul -ldl
 dll: libadd.so libdivs.so libmult.so libsub.so
+	rm -f add.o sub.o divs.o mult.o 	
 libadd.so: add.o 
 	gcc -shared add.o -o ./plag/libadd.so
 libsub.so: sub.o 
@@ -17,5 +18,5 @@ divs.o:
 	gcc -fpic -c divs.c
 mult.o:
 	gcc -fpic -c mult.c
-clr:
-	rm -f add.o sub.o divs.o mult.o 
+clen:
+	rm -f calcul ./plag/*.* 
